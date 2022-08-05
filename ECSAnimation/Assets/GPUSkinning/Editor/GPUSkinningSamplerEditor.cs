@@ -317,11 +317,11 @@ public class GPUSkinningSamplerEditor : Editor
                         EditorGUILayout.EndHorizontal();
                         for (int i = 0; i < no; i++)
                         {
-                            var prop = animClips_item_sp[i];
-                            var prop2 = wrapModes_item_sp[i];
-                            var prop3 = fpsList_item_sp[i];
-                            var prop4 = rootMotionEnabled_item_sp[i];
-                            var prop5 = individualDifferenceEnabled_item_sp[i];
+                            SerializedProperty prop = animClips_item_sp[i];
+                            SerializedProperty prop2 = wrapModes_item_sp[i];
+                            SerializedProperty prop3 = fpsList_item_sp[i];
+                            SerializedProperty prop4 = rootMotionEnabled_item_sp[i];
+                            SerializedProperty prop5 = individualDifferenceEnabled_item_sp[i];
                             if (prop != null)
                             {
                                 if(j == -1)
@@ -1450,7 +1450,7 @@ public class GPUSkinningSamplerEditor : Editor
         System.Type type = Assembly.GetAssembly(typeof(Editor)).GetType("UnityEditor.InspectorWindow");
         FieldInfo field = type.GetField("m_AllInspectors", BindingFlags.Static | BindingFlags.NonPublic);
         System.Collections.ArrayList windows = new System.Collections.ArrayList(field.GetValue(null) as System.Collections.ICollection);
-        foreach (var window in windows)
+        foreach (object window in windows)
         {
             PropertyInfo property = type.GetProperty("isLocked");
             property.SetValue(window, isLocked, null);

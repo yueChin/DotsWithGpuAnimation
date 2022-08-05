@@ -1,5 +1,6 @@
 using System;
 using UnityEngine;
+using Object = UnityEngine.Object;
 
 namespace UnityEditor
 {
@@ -190,7 +191,7 @@ internal class GPUSkinningStandardShaderGUI : ShaderGUI
 		}
 		if (EditorGUI.EndChangeCheck())
 		{
-			foreach (var obj in blendMode.targets)
+			foreach (Object obj in blendMode.targets)
 				MaterialChanged((Material)obj, m_WorkflowMode);
 		}
 	}
@@ -242,7 +243,7 @@ internal class GPUSkinningStandardShaderGUI : ShaderGUI
 	void BlendModePopup()
 	{
 		EditorGUI.showMixedValue = blendMode.hasMixedValue;
-		var mode = (BlendMode)blendMode.floatValue;
+		BlendMode mode = (BlendMode)blendMode.floatValue;
 
 		EditorGUI.BeginChangeCheck();
 		mode = (BlendMode)EditorGUILayout.Popup(Styles.renderingMode, (int)mode, Styles.blendNames);
@@ -375,7 +376,7 @@ internal class GPUSkinningStandardShaderGUI : ShaderGUI
 
 	static bool ShouldEmissionBeEnabled(Material mat, Color color)
 	{
-		var realtimeEmission = (mat.globalIlluminationFlags & MaterialGlobalIlluminationFlags.RealtimeEmissive) > 0;
+		bool realtimeEmission = (mat.globalIlluminationFlags & MaterialGlobalIlluminationFlags.RealtimeEmissive) > 0;
 		return color.maxColorComponent > 0.1f / 255.0f || realtimeEmission;
 	}
 

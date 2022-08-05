@@ -153,7 +153,7 @@ public class GPUSkinningPlayerMonoEditor : Editor
             player.Update_Editor(deltaTime);
         }
 
-        foreach(var sceneView in SceneView.sceneViews)
+        foreach(object sceneView in SceneView.sceneViews)
         {
             if (sceneView is SceneView)
             {
