@@ -5,10 +5,6 @@
 		_BaseMap ("Texture", 2D) = "white" {}
 	}
 
-	HLSLINCLUDE
-
-	ENDHLSL
-
 	SubShader
 	{
 		Tags 

@@ -3,6 +3,7 @@
 // Upgrade NOTE: upgraded instancing buffer 'GPUSkinningProperties2' to new syntax.
 
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/API/D3D11.hlsl"
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/UnityInstancing.hlsl"
 #ifndef GPUSKINNING_INCLUDE
 #define GPUSKINNING_INCLUDE
