@@ -166,10 +166,10 @@ public class AnimMapBakerWindow : EditorWindow
 
     private static string CreateFolder()
     {
-        string folderPath = Path.Combine("Assets/" + _path, _subPath);
+        string folderPath = Path.Combine("Assets/MultiGPUSkinning/" + _path, _subPath);
         if (!AssetDatabase.IsValidFolder(folderPath))
         {
-            AssetDatabase.CreateFolder("Assets/" + _path, _subPath);
+            AssetDatabase.CreateFolder("Assets/MultiGPUSkinning/" + _path, _subPath);
         }
         return folderPath;
     }

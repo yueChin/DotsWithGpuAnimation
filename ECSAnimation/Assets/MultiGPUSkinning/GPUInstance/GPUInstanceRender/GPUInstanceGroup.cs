@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GFrame.GPUInstance
 {
+    //一个组管理cell，可以理解为一个方阵，或整个世界？？？
     public class GPUInstanceGroup
     {
         private Mesh m_DrawMesh;

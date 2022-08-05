@@ -5,6 +5,7 @@ using UnityEngine;
 
 namespace GFrame.GPUInstance
 {
+    //一个cell管理一类单位的动画
     public class GPUInstanceCell//:IEnumerator
     {
         // public OnCellDraw onCellDraw;

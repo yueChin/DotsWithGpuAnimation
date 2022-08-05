@@ -4,44 +4,8 @@ using UnityEngine;
 
 namespace GFrame.GPUInstance
 {
-    public class GPUInstanceAnimedCellItem : GPUInstanceCellItem
+    public partial class GPUInstanceAnimedCellItem : GPUInstanceCellItem
     {
-        private class Animation
-        {
-            public float animStartRate { set; get; }
-            public float animEndRate { set; get; }
-            public float animRate { set; get; }
-
-            private float m_Speed;
-
-            public void InitTime(AnimMapClip clip)
-            {
-                animStartRate = (float)clip.startHeight / (float)s_AnimDataInfo.maxHeight;
-                float totalRate = (float)clip.height / (float)s_AnimDataInfo.maxHeight;
-                animEndRate = animStartRate + totalRate;
-                m_Speed = 1.0f / clip.animLen * (animEndRate - animStartRate);
-                Replay();
-            }
-
-            public bool IsEnd()
-            {
-                // return animRate>=1;
-                return animRate >= animEndRate;
-            }
-
-            public void Trick()
-            {
-                animRate += Time.deltaTime * m_Speed;
-            }
-
-            public void Replay()
-            {
-                // animRate=0;
-                animRate = animStartRate;
-            }
-
-        }
-
         private bool m_Playing = false;
         private bool m_Looping = false;
         private bool m_Fading = false;
@@ -55,9 +19,10 @@ namespace GFrame.GPUInstance
         public float animLerp = 0;
 
         //==Static Block
+        //这里的静态得改
         private static AnimDataInfo s_AnimDataInfo;
         private static Dictionary<string, AnimMapClip> s_AnimDataMap;
-        public static void SetAnimData(AnimDataInfo animDataInfo)
+        public static void SetAnimData( AnimDataInfo animDataInfo)
         {
             s_AnimDataInfo = animDataInfo;
             s_AnimDataMap = new Dictionary<string, AnimMapClip>();
