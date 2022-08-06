@@ -3,6 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 帧事件封装
+/// </summary>
 [System.Serializable]
 public class GPUSkinningAnimEvent : System.IComparable<GPUSkinningAnimEvent>
 {

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 挂载的入口
+/// </summary>
 [ExecuteInEditMode]
 public class GPUSkinningPlayerMono : MonoBehaviour
 {
@@ -117,14 +120,14 @@ public class GPUSkinningPlayerMono : MonoBehaviour
         }
     }
 
-    private void OnValidate()
-    {
-        if (!Application.isPlaying)
-        {
-            Init();
-            Update_Editor(0);
-        }
-    }
+    // private void OnValidate()
+    // {
+    //     if (!Application.isPlaying)
+    //     {
+    //         Init();
+    //         Update_Editor(0);
+    //     }
+    // }
 #endif
 
     private void Start()

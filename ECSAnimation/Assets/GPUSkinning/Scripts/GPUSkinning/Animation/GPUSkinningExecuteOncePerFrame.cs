@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// 判断动画本帧是否可执行的封装
+/// </summary>
 public class GPUSkinningExecuteOncePerFrame
 {
     private int frameCount = -1;

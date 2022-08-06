@@ -2,6 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 
+/// <summary>
+/// 这才是真正的Manager吧？
+/// </summary>
 public class GPUSkinningPlayer
 {
     public delegate void OnAnimEvent(GPUSkinningPlayer player, int eventId);
@@ -37,10 +40,20 @@ public class GPUSkinningPlayer
     private MaterialPropertyBlock mpb = null;
 
     private int rootMotionFrameIndex = -1;
-
     public event OnAnimEvent onAnimEvent;
 
     private bool rootMotionEnabled = false;
+    
+    private GPUSKinningCullingMode cullingMode = GPUSKinningCullingMode.CullUpdateTransforms;
+    
+    private bool visible = false;
+    
+    private bool lodEnabled = true;
+    
+    private bool isPlaying = false;
+    
+    private List<GPUSkinningPlayerJoint> joints = null;
+    
     public bool RootMotionEnabled
     {
         get
@@ -54,7 +67,6 @@ public class GPUSkinningPlayer
         }
     }
 
-    private GPUSKinningCullingMode cullingMode = GPUSKinningCullingMode.CullUpdateTransforms;
     public GPUSKinningCullingMode CullingMode
     {
         get
@@ -67,7 +79,6 @@ public class GPUSkinningPlayer
         }
     }
 
-    private bool visible = false;
     public bool Visible
     {
         get
@@ -80,7 +91,6 @@ public class GPUSkinningPlayer
         }
     }
 
-    private bool lodEnabled = true;
     public bool LODEnabled
     {
         get
@@ -94,7 +104,6 @@ public class GPUSkinningPlayer
         }
     }
 
-    private bool isPlaying = false;
     public bool IsPlaying
     {
         get
@@ -127,7 +136,7 @@ public class GPUSkinningPlayer
         }
     }
 
-    private List<GPUSkinningPlayerJoint> joints = null;
+
     public List<GPUSkinningPlayerJoint> Joints
     {
         get
@@ -333,6 +342,7 @@ public class GPUSkinningPlayer
         }
     }
 
+    //切换到新动画
     private void SetNewPlayingClip(GPUSkinningClip clip)
     {
         lastPlayedClip = playingClip;
@@ -345,6 +355,7 @@ public class GPUSkinningPlayer
         timeDiff = Random.Range(0, playingClip.length);
     }
 
+    //timeDelta方便时间缩放
     private void Update_Internal(float timeDelta)
     {
         if (!isPlaying || playingClip == null)
@@ -419,6 +430,7 @@ public class GPUSkinningPlayer
         }
     }
 
+    //动画clip过渡
     private void UpdateMaterial(float deltaTime, GPUSkinningMaterial currMtrl)
     {
         int frameIndex = GetFrameIndex();
@@ -465,7 +477,7 @@ public class GPUSkinningPlayer
 
         UpdateEvents(playingClip, frameIndex, frame_crossFade == null ? null : lastPlayedClip, frameIndex_crossFade);
     }
-
+    
     private GPUSkinningMaterial GetCurrentMaterial()
     {
         if(res == null)
@@ -590,6 +602,7 @@ public class GPUSkinningPlayer
         return (int)(time * clip.fps) % (int)(clip.length * clip.fps);
     }
 
+    //更新关节
     private void UpdateJoints(GPUSkinningFrame frame)
     {
         if(joints == null)
@@ -629,6 +642,7 @@ public class GPUSkinningPlayer
         }
     }
 
+    //构造关节结构
     private void ConstructJoints()
     {
         if (joints == null)

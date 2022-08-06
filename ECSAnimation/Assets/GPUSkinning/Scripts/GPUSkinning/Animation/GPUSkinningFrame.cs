@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// 动画帧 srt 巴拉巴拉
+/// </summary>
 [System.Serializable]
 public class GPUSkinningFrame
 {

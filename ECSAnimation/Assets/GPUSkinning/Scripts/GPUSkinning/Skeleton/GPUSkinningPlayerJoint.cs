@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Mono关节
 [ExecuteInEditMode]
 public class GPUSkinningPlayerJoint : MonoBehaviour
 {

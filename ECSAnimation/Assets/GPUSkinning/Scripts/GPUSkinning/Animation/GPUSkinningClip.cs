@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// clip 帧序列 和 事件组
+/// </summary>
 [System.Serializable]
 public class GPUSkinningClip
 {

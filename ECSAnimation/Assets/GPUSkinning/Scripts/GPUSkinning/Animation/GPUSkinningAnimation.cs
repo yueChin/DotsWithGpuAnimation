@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/// <summary>
+/// gpu动画，骨骼集 和 动画clip集合 还有lod，包围盒巴拉巴拉
+/// </summary>
 public class GPUSkinningAnimation : ScriptableObject
 {
     public string guid = null;
