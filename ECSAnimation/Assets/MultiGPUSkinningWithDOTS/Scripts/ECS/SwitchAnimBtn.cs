@@ -6,16 +6,6 @@ using Aoi.ECS;
 
 public sealed class SwitchAnimBtn : MonoBehaviour
 {
-    private void Start()
-    {
-       
-    }
-
-    private void OnGUI()
-    {
-
-    }
-
     public void OnClickBtn()
     {
         ECS_AnimatorEntityRenderingSystem renderingSys = World.DefaultGameObjectInjectionWorld.GetExistingSystem<ECS_AnimatorEntityRenderingSystem>();

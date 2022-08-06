@@ -1,6 +1,9 @@
 #ifndef __AOI_GPUSKINNING
 #define __AOI_GPUSKINNING
 
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/API/D3D11.hlsl"
+#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
+
 TEXTURE2D(_AnimTex);
 SAMPLER(sampler_AnimTex);
 
@@ -19,8 +22,8 @@ inline float3 QuatMulPos(float4 rotation, float3 rhs)
 	return rhs + 2 * (c1 * rotation.w + c2);
 }
 
-inline float3 QuatMulPos(float4 real, float4 dual, float4 rhs) {
-	return dual.xyz * rhs.w + QuatMulPos(real, rhs.xyz);
+inline float3 QuatMulPos(float4 realValue, float4 dual, float4 rhs) {
+	return dual.xyz * rhs.w + QuatMulPos(realValue, rhs.xyz);
 }
 
 inline float4 DQTexSkinning(float4 vertex, float4 texcoord, float4 startData, Texture2D<float4> animTex, SamplerState animTexSample) {
