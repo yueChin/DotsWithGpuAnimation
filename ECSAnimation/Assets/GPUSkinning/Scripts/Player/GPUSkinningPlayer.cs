@@ -35,7 +35,7 @@ public class GPUSkinningPlayer
 
     private GPUSkinningClip playingClip = null;
 
-    private GPUSkinningPlayerResources res = null;
+    private GPUSkinningRender res = null;
 
     private MaterialPropertyBlock mpb = null;
 
@@ -52,6 +52,9 @@ public class GPUSkinningPlayer
     
     private bool isPlaying = false;
     
+    /// <summary>
+    /// 这玩意儿看起来莫得用？
+    /// </summary>
     private List<GPUSkinningPlayerJoint> joints = null;
     
     public bool RootMotionEnabled
@@ -213,12 +216,12 @@ public class GPUSkinningPlayer
     {
     }
 
-    public GPUSkinningPlayer(GameObject attachToThisGo, GPUSkinningPlayerResources res)
+    public GPUSkinningPlayer(GameObject attachToThisGo, GPUSkinningRender res)
     {
         SetPlayer(attachToThisGo,res);
     }
 
-    public void SetPlayer(GameObject attachToThisGo,GPUSkinningPlayerResources res)
+    public void SetPlayer(GameObject attachToThisGo,GPUSkinningRender res)
     {
         go = attachToThisGo;
         transform = go.transform;
@@ -244,6 +247,10 @@ public class GPUSkinningPlayer
         ConstructJoints();
     }
     
+    /// <summary>
+    /// 播放指定clip
+    /// </summary>
+    /// <param name="clipName"></param>
     public void Play(string clipName)
     {
         GPUSkinningClip[] clips = res.anim.clips;
@@ -263,6 +270,11 @@ public class GPUSkinningPlayer
         }
     }
 
+    /// <summary>
+    /// 过度到指定clip
+    /// </summary>
+    /// <param name="clipName"></param>
+    /// <param name="fadeLength"></param>
     public void CrossFade(string clipName, float fadeLength)
     {
         if (playingClip == null)
@@ -430,12 +442,17 @@ public class GPUSkinningPlayer
         }
     }
 
-    //动画clip过渡
+    /// <summary>
+    /// tick 材质
+    /// </summary>
+    /// <param name="deltaTime"></param>
+    /// <param name="currMtrl"></param>
     private void UpdateMaterial(float deltaTime, GPUSkinningMaterial currMtrl)
     {
         int frameIndex = GetFrameIndex();
         if(lastPlayingClip == playingClip && lastPlayingFrameIndex == frameIndex)
         {
+            //Debug.LogError("update1");
             res.Update(deltaTime, currMtrl);
             return;
         }
@@ -453,9 +470,9 @@ public class GPUSkinningPlayer
         }
 
         GPUSkinningFrame frame = playingClip.frames[frameIndex];
-        if (Visible || 
-            CullingMode == GPUSKinningCullingMode.AlwaysAnimate)
+        if (Visible || CullingMode == GPUSKinningCullingMode.AlwaysAnimate)
         {
+            //Debug.LogError("update2");
             res.Update(deltaTime, currMtrl);
             res.UpdatePlayingData(
                 mpb, playingClip, frameIndex, frame, playingClip.rootMotionEnabled && rootMotionEnabled,
@@ -469,6 +486,7 @@ public class GPUSkinningPlayer
         {
             if (CullingMode != GPUSKinningCullingMode.CullCompletely)
             {
+                //Debug.LogError("update3");
                 rootMotionFrameIndex = frameIndex;
                 DoRootMotion(frame_crossFade, 1 - blend_crossFade, false);
                 DoRootMotion(frame, blend_crossFade, true);
@@ -487,7 +505,7 @@ public class GPUSkinningPlayer
 
         if(playingClip == null)
         {
-            return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOff_BlendOff);
+            return res.GetMaterial(GPUSkinningRender.MaterialState.RootOff_BlendOff);
         }
         if(playingClip.rootMotionEnabled && rootMotionEnabled)
         {
@@ -495,23 +513,23 @@ public class GPUSkinningPlayer
             {
                 if(lastPlayedClip.rootMotionEnabled)
                 {
-                    return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOn_BlendOn_CrossFadeRootOn);
+                    return res.GetMaterial(GPUSkinningRender.MaterialState.RootOn_BlendOn_CrossFadeRootOn);
                 }
-                return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOn_BlendOn_CrossFadeRootOff);
+                return res.GetMaterial(GPUSkinningRender.MaterialState.RootOn_BlendOn_CrossFadeRootOff);
             }
-            return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOn_BlendOff);
+            return res.GetMaterial(GPUSkinningRender.MaterialState.RootOn_BlendOff);
         }
         if(res.IsCrossFadeBlending(lastPlayedClip, crossFadeTime, crossFadeProgress))
         {
             if (lastPlayedClip.rootMotionEnabled)
             {
-                return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOff_BlendOn_CrossFadeRootOn);
+                return res.GetMaterial(GPUSkinningRender.MaterialState.RootOff_BlendOn_CrossFadeRootOn);
             }
-            return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOff_BlendOn_CrossFadeRootOff);
+            return res.GetMaterial(GPUSkinningRender.MaterialState.RootOff_BlendOn_CrossFadeRootOff);
         }
         else
         {
-            return res.GetMaterial(GPUSkinningPlayerResources.MaterialState.RootOff_BlendOff);
+            return res.GetMaterial(GPUSkinningRender.MaterialState.RootOff_BlendOff);
         }
     }
 

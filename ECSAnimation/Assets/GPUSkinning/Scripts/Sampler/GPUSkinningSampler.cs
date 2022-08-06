@@ -338,22 +338,30 @@ public class GPUSkinningSampler : MonoBehaviour
 
     private void SetCurrentAnimationClip()
     {
+        //Debug.LogError(animator == null);
         if (samplerAnimation == null)
         {
-            AnimatorOverrideController animatorOverrideController = new AnimatorOverrideController();
+            AnimatorOverrideController animatorOverrideController = animator.runtimeAnimatorController as AnimatorOverrideController;
+            if (animatorOverrideController == null)
+            {
+                Debug.LogError("Null   return");
+                return;
+            }
+            //RuntimeAnimatorController runtimeAnimatorController = animator.runtimeAnimatorController;
             AnimationClip[] clips = runtimeAnimatorController.animationClips;
             //AnimationClipPair[] pairs = new AnimationClipPair[clips.Length];
-            IList<KeyValuePair<AnimationClip, AnimationClip>> pairs = new List<KeyValuePair<AnimationClip, AnimationClip>>(clips.Length);
+            List<KeyValuePair<AnimationClip, AnimationClip>> pairs = new List<KeyValuePair<AnimationClip, AnimationClip>>(clips.Length);
+            animatorOverrideController.GetOverrides(pairs);
             for (int i = 0; i < clips.Length; ++i)
             {
                 // AnimationClipPair pair = new AnimationClipPair();
                 //pairs[i] = pair;
                 // pair.originalClip = clips[i];
                 // pair.overrideClip = animClip;
-                pairs[i] = new KeyValuePair<AnimationClip, AnimationClip>(clips[i],animClip);
-
+                //pairs[i] = new KeyValuePair<AnimationClip, AnimationClip>(clips[i],animClip);
+                pairs.Add(new KeyValuePair<AnimationClip, AnimationClip>(clips[i],animClip));
             }
-            animatorOverrideController.runtimeAnimatorController = runtimeAnimatorController;
+            //animatorOverrideController.runtimeAnimatorController = runtimeAnimatorController;
             //animatorOverrideController.clips = pairs;
             animatorOverrideController.ApplyOverrides(pairs);
             animator.runtimeAnimatorController = animatorOverrideController;

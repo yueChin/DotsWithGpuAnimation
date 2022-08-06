@@ -5,9 +5,9 @@ using UnityEngine;
 //没明白为什么要多一个管理类
 public class GPUSkinningPlayerMonoManager
 {
-    private List<GPUSkinningPlayerResources> m_ResourceList = new List<GPUSkinningPlayerResources>();
+    private List<GPUSkinningRender> m_RendererList = new List<GPUSkinningRender>();
 
-    public void Register(GPUSkinningAnimation anim, Mesh mesh, Material originalMtrl, TextAsset textureRawData, GPUSkinningPlayerMono player, out GPUSkinningPlayerResources resources)
+    public void Register(GPUSkinningAnimation anim, Mesh mesh, Material originalMtrl, TextAsset textureRawData, GPUSkinningPlayerMono player, out GPUSkinningRender resources)
     {
         resources = null;
 
@@ -16,22 +16,22 @@ public class GPUSkinningPlayerMonoManager
             return;
         }
 
-        GPUSkinningPlayerResources tempResource = null;
+        GPUSkinningRender tempResource = null;
 
-        int numItems = m_ResourceList.Count;
+        int numItems = m_RendererList.Count;
         for(int i = 0; i < numItems; ++i)
         {
-            if(m_ResourceList[i].anim.guid == anim.guid)
+            if(m_RendererList[i].anim.guid == anim.guid)
             {
-                tempResource = m_ResourceList[i];
+                tempResource = m_RendererList[i];
                 break;
             }
         }
 
         if(tempResource == null)
         {
-            tempResource = new GPUSkinningPlayerResources();
-            m_ResourceList.Add(tempResource);
+            tempResource = new GPUSkinningRender();
+            m_RendererList.Add(tempResource);
         }
 
         if(tempResource.anim == null)
@@ -67,18 +67,18 @@ public class GPUSkinningPlayerMonoManager
             return;
         }
 
-        int numItems = m_ResourceList.Count;
+        int numItems = m_RendererList.Count;
         for(int i = 0; i < numItems; ++i)
         {
-            int playerIndex = m_ResourceList[i].players.IndexOf(player);
+            int playerIndex = m_RendererList[i].players.IndexOf(player);
             if(playerIndex != -1)
             {
-                m_ResourceList[i].players.RemoveAt(playerIndex);
-                m_ResourceList[i].RemoveCullingBounds(playerIndex);
-                if(m_ResourceList[i].players.Count == 0)
+                m_RendererList[i].players.RemoveAt(playerIndex);
+                m_RendererList[i].RemoveCullingBounds(playerIndex);
+                if(m_RendererList[i].players.Count == 0)
                 {
-                    m_ResourceList[i].Destroy();
-                    m_ResourceList.RemoveAt(i);
+                    m_RendererList[i].Destroy();
+                    m_RendererList.RemoveAt(i);
                 }
                 break;
             }

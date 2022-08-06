@@ -74,7 +74,7 @@ public class GPUSkinningPlayerMono : MonoBehaviour
 
         if (player == null && anim != null && mesh != null && mtrl != null && textureRawData != null)
         {
-            GPUSkinningPlayerResources res = null;
+            GPUSkinningRender res = null;
 
             if (Application.isPlaying)
             {
@@ -82,7 +82,7 @@ public class GPUSkinningPlayerMono : MonoBehaviour
             }
             else
             {
-                res = new GPUSkinningPlayerResources
+                res = new GPUSkinningRender
                 {
                     anim = anim,
                     mesh = mesh

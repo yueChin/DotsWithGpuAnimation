@@ -14,8 +14,8 @@ Material:
   - _NORMALMAP
   - _SPECGLOSSMAP
   m_InvalidKeywords:
-  - _INSTANCE_VARIATION
-  - _SKINNED_MESH_4
+  - _METALLICSPECGLOSSMAP
+  - _OCCLUSIONMAP
   m_LightmapFlags: 1
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -70,7 +70,7 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 0}
+        m_Texture: {fileID: 2800000, guid: 095bf679c59b4304e8565434c1f4dbbf, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -97,15 +97,34 @@ Material:
         m_Texture: {fileID: 2800000, guid: 10f86f9c19de8b34791afa6865fdb21b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - unity_Lightmaps:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_LightmapsInd:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - unity_ShadowMasks:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Ints: []
     m_Floats:
+    - _AlphaClip: 0
     - _AnimatedRandomRowOffset: 1
+    - _Blend: 0
     - _BumpScale: 1
+    - _ClearCoatMask: 0
+    - _ClearCoatSmoothness: 0
+    - _Cull: 2
     - _CullMode: 2
     - _Cutoff: 0.5
+    - _DetailAlbedoMapScale: 1
     - _DetailMode: 0
     - _DetailNormalMapScale: 1
     - _DstBlend: 0
+    - _EnvironmentReflections: 1
     - _ExtraNormalShadowBias: 0
     - _GlossMapScale: 1
     - _Glossiness: 0.5
@@ -123,10 +142,14 @@ Material:
     - _Mode: 0
     - _OcclusionStrength: 1
     - _Parallax: 0.02
+    - _QueueOffset: 0
+    - _ReceiveShadows: 1
     - _ReflectionProbeBoost: 1
+    - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
     - _SrcBlend: 1
+    - _Surface: 0
     - _Translucency: 0
     - _TransmissionThicknessScale: 1
     - _UVDetailMask: 0
@@ -134,6 +157,7 @@ Material:
     - _VertexOcclusionPower: 1
     - _WindHeightClamp: 1
     - _WindHeightScale: 0
+    - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
     - _AnimatedFrameSize: {r: 0.125, g: 0.25, b: 0, a: 0}

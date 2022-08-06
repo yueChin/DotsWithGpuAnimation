@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GPUSkinningPlayerResources
+public class GPUSkinningRender
 {
     public enum MaterialState
     {
@@ -60,7 +60,7 @@ public class GPUSkinningPlayerResources
 
     private static int shaderPropID_GPUSkinning_RootMotion_CrossFade = 0;
 
-    public GPUSkinningPlayerResources()
+    public GPUSkinningRender()
     {
         if (shaderPropID_GPUSkinning_TextureMatrix == -1)
         {
@@ -73,7 +73,7 @@ public class GPUSkinningPlayerResources
         }
     }
 
-    ~GPUSkinningPlayerResources()
+    ~GPUSkinningRender()
     {
         DestroyCullingGroup();
     }
