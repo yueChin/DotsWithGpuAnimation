@@ -55,7 +55,7 @@ namespace Aoi.ECS
                     }
 
                     Material m = provider.AttachDatas[attach].DrawMaterial;
-                    m.SetTexture("_AnimTex", animTex);
+                    m.SetTexture("_AnimTex_Runtime", animTex);
                     m.EnableKeyword("_ECS_ON");
                 }
                 else

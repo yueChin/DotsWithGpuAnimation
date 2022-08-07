@@ -7,6 +7,9 @@ public class SimpleAnimator : MonoBehaviour
     public static float FPS = 1.0f / 30.0f;
 
     protected MeshFilter[] m_subPartMF;
+    /// <summary>
+    /// 人和马
+    /// </summary>
     protected Renderer[] m_subPartRenderer;
     protected Material[] m_subPartMaterial;
 

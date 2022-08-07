@@ -2,7 +2,7 @@
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Rendering;
-
+using UnityEngine;
 using Random = Unity.Mathematics.Random;
 
 /// <summary>
@@ -30,15 +30,14 @@ namespace Aoi.ECS
             //Instantiate 士兵预制体
             Entities.WithName("ECS_AmimatorEntitySpawnerSystem")
                 .WithBurst(Unity.Burst.FloatMode.Default, Unity.Burst.FloatPrecision.Standard, true)
-                .ForEach(
-                (Entity entity, int entityInQueryIndex, int nativeThreadIndex, in ECS_AnimatorSpawner spawner, in LocalToWorld location) =>
+                .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, in ECS_AnimatorSpawner spawner, in LocalToWorld location) =>
                 {
                     for (int x = 0; x < spawner.CountX; x++)
                     {
                         for (int y = 0; y < spawner.CountY; y++)
                         {
                             Entity instance = command.Instantiate(entityInQueryIndex, spawner.Prefab);
-
+                            //Debug.LogError($"{instance.Index}");
                             //Aniamtor出生位置
                             float3 position = math.transform(location.Value,
                             new float3(x * 1.3F, 0, y * 1.3F));
