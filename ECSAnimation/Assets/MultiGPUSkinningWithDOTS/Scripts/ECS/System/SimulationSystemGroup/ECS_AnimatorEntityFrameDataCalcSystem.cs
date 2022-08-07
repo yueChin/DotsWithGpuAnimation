@@ -5,6 +5,7 @@ using Unity.Jobs;
 using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
+using UnityEngine;
 using UnityEngine.Rendering;
 using Random = Unity.Mathematics.Random;
 
@@ -91,6 +92,7 @@ namespace Aoi.ECS
                     //     float3 globalScale = new float3(scale.c0.x, scale.c1.y, scale.c2.z);
                     //     return globalScale;
                     // }
+                    //Debug.LogError(lodIndex);
                     animData.ActivedLOD = lodIndex + 1;
 
                     int frameCount = animData.AnimationFrameCountArr.Value.ArrayData[animData.AnimationIndex];
@@ -117,12 +119,13 @@ namespace Aoi.ECS
                     //未激活的LOD attach return
                     if((lod.LODMask & animData.ActivedLOD) == 0)
                     {
+                        //Debug.LogError("return");
                         return;
                     }
-
+                    //Debug.LogError("go");
                     int frameInPixelOffset = animData.AnimationFrameOffsetArr.Value.ArrayData[(attach.AttachIndex * animData.AnimCount) + animData.AnimationIndex];
                     int smrOffset = animData.AttachSmrCountArr.Value.ArrayData[attach.AttachIndex];
-                    float3 texData = texData = animData.AttachTexDataArr.Value.ArrayData[attach.AttachIndex];
+                    float3 texData = animData.AttachTexDataArr.Value.ArrayData[attach.AttachIndex];
 
                     int frameOffset = frameInPixelOffset + animData.CurFrame * smrOffset * 2;
                     float4 perFrameData = new float4(texData.x, texData.y, frameOffset, texData.z);

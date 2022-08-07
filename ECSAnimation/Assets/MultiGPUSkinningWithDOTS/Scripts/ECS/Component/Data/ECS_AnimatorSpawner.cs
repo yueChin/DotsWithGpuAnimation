@@ -7,7 +7,7 @@ namespace Aoi.ECS
         public int CountX;
         public int CountY;
         public int AttachCount;
-        public Entity Prefab;
+        public Entity PrefabEntity;
 
         public BlobAssetReference<EntityArray> AttachLOD;
 

@@ -1,7 +1,7 @@
 #ifndef __AOI_GPUSKINNING
 #define __AOI_GPUSKINNING
 
-#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/API/D3D11.hlsl"
+//#include "Packages/com.unity.render-pipelines.core/ShaderLibrary/API/D3D11.hlsl"
 #include "Packages/com.unity.render-pipelines.core/ShaderLibrary/Common.hlsl"
 
 TEXTURE2D(_AnimTex);

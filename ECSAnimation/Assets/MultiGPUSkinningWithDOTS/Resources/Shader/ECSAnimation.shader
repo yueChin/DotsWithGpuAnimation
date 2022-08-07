@@ -149,21 +149,13 @@ Shader "ECS_Skinning_URP/Lit"
             #pragma vertex LitPassVertexECS
             #pragma fragment LitPassFragment
 
-            #include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            //#include "Packages/com.unity.render-pipelines.universal/Shaders/LitInput.hlsl"
+            #include "Assets/MultiGPUSkinningWithDOTS/Resources/Shader/Includes/GPUSkinningLitInput.hlsl"
             #include "Packages/com.unity.render-pipelines.universal/Shaders/LitForwardPass.hlsl"
             #include "Assets/MultiGPUSkinningWithDOTS/Resources/Shader/Includes/Skinning.hlsl"
             
             #pragma shader_feature_local _ _ECS_ON
             
-            TEXTURE2D(_AnimTex_Runtime);
-            SAMPLER(sampler_AnimTex_Runtime);
-            float4 _AnimTex_Runtime_TexelSize;
-
-            SAMPLER(SamplerState_Point_Repeat);
-
-            float4 _FrameData;
-            float4 _ECS_FrameData;
-
             struct AttributesInput
             {
                 float4 positionOS   : POSITION;

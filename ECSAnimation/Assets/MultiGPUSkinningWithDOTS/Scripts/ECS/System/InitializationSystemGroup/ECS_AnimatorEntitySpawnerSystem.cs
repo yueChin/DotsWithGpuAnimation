@@ -1,4 +1,7 @@
-﻿using Unity.Entities;
+﻿using System.Collections.Generic;
+using Unity.Burst;
+using Unity.Entities;
+using Unity.Jobs;
 using Unity.Transforms;
 using Unity.Mathematics;
 using Unity.Rendering;
@@ -12,6 +15,7 @@ using Random = Unity.Mathematics.Random;
 /// </summary>
 namespace Aoi.ECS
 {
+    
     [UpdateInGroup(typeof(InitializationSystemGroup))]
     public partial class ECS_AnimatorEntitySpawnerSystem : SystemBase
     {
@@ -28,19 +32,19 @@ namespace Aoi.ECS
             EntityCommandBuffer.ParallelWriter command = m_EntityCommandBufferSystem.CreateCommandBuffer().AsParallelWriter();
 
             //Instantiate 士兵预制体
-            Entities.WithName("ECS_AmimatorEntitySpawnerSystem")
+            Entities.WithName("ECS_AnimatorEntitySpawnerSystem")
                 .WithBurst(Unity.Burst.FloatMode.Default, Unity.Burst.FloatPrecision.Standard, true)
                 .ForEach((Entity entity, int entityInQueryIndex, int nativeThreadIndex, in ECS_AnimatorSpawner spawner, in LocalToWorld location) =>
                 {
-                    for (int x = 0; x < spawner.CountX; x++)
+                    int x = 0, y = 0;
+                    //for (x = 0; x < spawner.CountX; x++)
                     {
-                        for (int y = 0; y < spawner.CountY; y++)
+                        //for (y = 0; y < spawner.CountY; y++)
                         {
-                            Entity instance = command.Instantiate(entityInQueryIndex, spawner.Prefab);
-                            //Debug.LogError($"{instance.Index}");
+                            Entity instance = command.Instantiate(entityInQueryIndex, spawner.PrefabEntity);
+                            //Debug.LogError($"{11111111111}");
                             //Aniamtor出生位置
-                            float3 position = math.transform(location.Value,
-                            new float3(x * 1.3F, 0, y * 1.3F));
+                            float3 position = math.transform(location.Value, new float3(x * 1.3F, 0, y * 1.3F));
                             command.SetComponent(entityInQueryIndex, instance, new Translation() { Value = position });
 
                             //模型部件分拆 需要独立实例化，比如骑兵的 马和人 是2个attach
@@ -71,7 +75,7 @@ namespace Aoi.ECS
                         command.DestroyEntity(entityInQueryIndex, spawner.AttachLOD.Value.ArrayData[lod]);
                     }
                 }).ScheduleParallel();
-
+            
             m_EntityCommandBufferSystem.AddJobHandleForProducer(this.Dependency);
         }
     }

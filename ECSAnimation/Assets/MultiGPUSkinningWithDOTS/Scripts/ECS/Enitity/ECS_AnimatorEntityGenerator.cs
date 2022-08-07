@@ -39,12 +39,12 @@ namespace Aoi.ECS
             ECS_AnimatorSpawner spawnerData = new ECS_AnimatorSpawner
             {
                 //主Entity 为ECS_SkinnedMatrixAnimator组件所在
-                Prefab = conversionSystem.GetPrimaryEntity(Prefab),
+                PrefabEntity = conversionSystem.GetPrimaryEntity(Prefab),
                 CountX = CountX,
                 CountY = CountY,
             };
 
-            if (true)
+            //if (true)
             {
                 GeneratorAttach(ref spawnerData, dstManager);
             }
@@ -76,7 +76,7 @@ namespace Aoi.ECS
 
         void GeneratorLOD(ref ECS_AnimatorSpawner spawnerData, EntityManager dstManager, List<Entity> lodEntityList, int attachIndex, AttachData attachData)
         {
-            dstManager.AddComponentData(spawnerData.Prefab, new MeshLODGroupComponent()
+            dstManager.AddComponentData(spawnerData.PrefabEntity, new MeshLODGroupComponent()
             {
                 LODDistances0 = LODDistance,
                 LODDistances1 = LODDistance,
@@ -86,7 +86,7 @@ namespace Aoi.ECS
             for (int lod = 0; lod < 2; lod++)
             {
                 Entity lodEntity = Entity.Null;
-                GeneratorSubLOD(ref spawnerData, ref lodEntity, ref spawnerData.Prefab, lod, dstManager, attachIndex, attachData);
+                GeneratorSubLOD(ref spawnerData, ref lodEntity, ref spawnerData.PrefabEntity, lod, dstManager, attachIndex, attachData);
                 lodEntityList.Add(lodEntity);
             }
         }
@@ -112,7 +112,7 @@ namespace Aoi.ECS
             {
                 lodMesh.Add(attachData.LODMesh[1]);
             }
-
+            //Debug.LogError(lodMesh.Count);
             //需要创建lod,且有lod数据
             if (lodMesh.Count > 1)
             {
@@ -124,7 +124,6 @@ namespace Aoi.ECS
 
                 float4 lodDistances = LODDistance;//new float4(10f, 10000f, 10000f, 10000f);
                 float3 position = new float3(0, 5, 0);
-
                 CreateLODEntity(ref childOfGroup, ref hostEntity, lod, dstManager, lodMesh.Count, lodMesh.ToArray(), lodMaterial.ToArray(), lodDistances, position);
             }
 
@@ -148,7 +147,7 @@ namespace Aoi.ECS
             };
 
 
-            //dstManager.SetDebugName(childOfGroup, "AnimatorMeshGroupPrefab");
+            //dstManager.Debug.LogEntityInfo(childOfGroup);
 
             dstManager.SetSharedComponentData(childOfGroup, renderMesh);
 

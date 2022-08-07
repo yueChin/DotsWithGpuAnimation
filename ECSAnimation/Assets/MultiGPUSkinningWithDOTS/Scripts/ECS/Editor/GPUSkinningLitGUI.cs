@@ -172,7 +172,7 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
         public static void DoClearCoat(LitProperties properties, MaterialEditor materialEditor, Material material)
         {
             materialEditor.ShaderProperty(properties.clearCoat, Styles.clearCoatText);
-            var coatEnabled = material.GetFloat("_ClearCoat") > 0.0;
+            bool coatEnabled = material.GetFloat("_ClearCoat") > 0.0;
 
             EditorGUI.BeginDisabledGroup(!coatEnabled);
             {
@@ -226,13 +226,13 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
 
             if (smoothnessMapChannel != null) // smoothness channel
             {
-                var opaque = IsOpaque(material);
+                bool opaque = IsOpaque(material);
                 EditorGUI.indentLevel++;
                 EditorGUI.showMixedValue = smoothnessMapChannel.hasMixedValue;
                 if (opaque)
                 {
                     EditorGUI.BeginChangeCheck();
-                    var smoothnessSource = (int)smoothnessMapChannel.floatValue;
+                    int smoothnessSource = (int)smoothnessMapChannel.floatValue;
                     smoothnessSource = EditorGUILayout.Popup(Styles.smoothnessMapChannelText, smoothnessSource, smoothnessChannelNames);
                     if (EditorGUI.EndChangeCheck())
                         smoothnessMapChannel.floatValue = smoothnessSource;
@@ -274,8 +274,8 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
 
             // Note: keywords must be based on Material value not on MaterialProperty due to multi-edit & material animation
             // (MaterialProperty value might come from renderer material property block)
-            var specularGlossMap = isSpecularWorkFlow ? "_SpecGlossMap" : "_MetallicGlossMap";
-            var hasGlossMap = material.GetTexture(specularGlossMap) != null;
+            string specularGlossMap = isSpecularWorkFlow ? "_SpecGlossMap" : "_MetallicGlossMap";
+            bool hasGlossMap = material.GetTexture(specularGlossMap) != null;
 
             CoreUtils.SetKeyword(material, "_METALLICSPECGLOSSMAP", hasGlossMap);
 
@@ -293,7 +293,7 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
 
             if (material.HasProperty("_SmoothnessTextureChannel"))
             {
-                var opaque = IsOpaque(material);
+                bool opaque = IsOpaque(material);
                 CoreUtils.SetKeyword(material, "_SMOOTHNESS_TEXTURE_ALBEDO_CHANNEL_A",
                     GetSmoothnessMapChannel(material) == SmoothnessMapChannel.AlbedoAlpha && opaque);
             }
@@ -301,7 +301,7 @@ namespace UnityEditor.Rendering.Universal.ShaderGUI
             // Clear coat keywords are independent to remove possiblity of invalid combinations.
             if (ClearCoatEnabled(material))
             {
-                var hasMap = material.HasProperty("_ClearCoatMap") && material.GetTexture("_ClearCoatMap") != null;
+                bool hasMap = material.HasProperty("_ClearCoatMap") && material.GetTexture("_ClearCoatMap") != null;
                 if (hasMap)
                 {
                     CoreUtils.SetKeyword(material, "_CLEARCOAT", false);
