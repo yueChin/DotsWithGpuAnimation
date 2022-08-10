@@ -3,6 +3,7 @@ using Unity.Mathematics;
 using Unity.Rendering;
 using Unity.Transforms;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class EntityRendererTest : MonoBehaviour
 {
@@ -31,6 +32,9 @@ public class EntityRendererTest : MonoBehaviour
 
         //创建Entity
         Entity entity = entityManager.CreateEntity(archetype);
+        RenderMeshDescription rmd = new RenderMeshDescription(mesh,material,ShadowCastingMode.Off);
+        RenderMeshUtility.AddComponents(entity,entityManager,in rmd);
+
         //为Entity设置数据
         entityManager.SetComponentData(entity, new LocalToWorld()
         {
@@ -40,6 +44,10 @@ public class EntityRendererTest : MonoBehaviour
         {
             mesh = mesh,
             material = material
+        });
+        entityManager.SetComponentData(entity, new Scale()
+        {
+            Value = 1
         });
         entityManager.SetComponentData(entity, new RenderBounds()
         {
