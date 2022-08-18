@@ -27,7 +27,7 @@
 <!-- ABOUT THE PROJECT -->
 ## 简单概述
 
-* 本库是作者为再次熟悉DotsAnimation方案所用（在面试被锤爆以后）
+* 本库是作者为再次熟悉DotsAnimation方案所用
 * URP12.1,DOTS0.51
 * DOTS0.51 用0.12的三件套MeshRenderer LocalToWorld RendererBounds无法渲染，正在找原因
 
